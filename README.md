@@ -6,10 +6,10 @@ A modern, annotation-driven command API for Spigot plugins that removes the need
 
 ## 📑 Table of Contents
 
-- Features
-- Why Use This?
-- Dependency (Maven)
-- Example Usage
+- [Features](#-features)
+- [Why Use This?](#-why-use-this)
+- [Dependency](#-dependency)
+- [Example Usage](#-example-usage)
 
 ---
 
@@ -37,7 +37,9 @@ A modern, annotation-driven command API for Spigot plugins that removes the need
 
 ---
 
-## 📦 Dependency (Maven)
+## 📦 Dependency 
+
+# Maven:
 
 Add the following to your `pom.xml` to use CommandAPI as a dependency:
 
@@ -59,6 +61,47 @@ Dependency
      <version>1.0</version>
 </dependency>
 
+```
+
+Gradle:
+
+Add the following in your settings.gradle at the end of repositories:
+
+```xml
+dependencyResolutionManagement {
+     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+     repositories {
+         mavenCentral()
+         maven { url 'https://jitpack.io' }
+   }
+}
+```
+
+And then add the dependency in your buid.gradle:
+```xml
+dependencies {
+    implementation 'com.github.curxxed-mc:CommandAPI:1.0'
+}
+```
+
+For settings.gradle.kts at the end of repositories:
+
+```xml
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+build.gradle.kts:
+
+```xml
+dependencies {
+    implementation("com.github.curxxed-mc:CommandAPI:1.0")
+}
 ```
 
 ---
