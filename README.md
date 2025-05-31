@@ -68,9 +68,9 @@ Dependency
 ### 1. Create Your Command Class
 
 ```java
-import net.curxxed.dev.api.command.BaseCommand;
-import net.curxxed.dev.api.command.Command;
-import net.curxxed.dev.api.command.CommandArgs;
+import net.curxxed.dev.CommandAPI.BaseCommand;
+import net.curxxed.dev.CommandAPI.Command;
+import net.curxxed.dev.CommandAPI.CommandArgs;
 import org.bukkit.entity.Player;
 
 public class Test extends BaseCommand {
