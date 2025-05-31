@@ -44,20 +44,20 @@ Add the following to your `pom.xml` to use CommandAPI as a dependency:
 Repository:
 
 ```xml
-                <repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
 ```
 
 Dependency
 
 ```xml
-	<dependency>
-	    <groupId>com.github.curxxed-mc</groupId>
-	    <artifactId>CommandAPI</artifactId>
-	    <version>1.0</version>
-	</dependency>
+<dependency>
+    <groupId>com.github.curxxed-mc</groupId>
+    <artifactId>CommandAPI</artifactId>
+     <version>1.0</version>
+</dependency>
 
 ```
 
