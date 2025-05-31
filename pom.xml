@@ -6,7 +6,6 @@
     <groupId>net.curxxed.dev</groupId>
     <artifactId>CommandAPI</artifactId>
     <version>1.0</version>
-    <scope>provided</scope>
     <packaging>jar</packaging>
 
     <properties>
