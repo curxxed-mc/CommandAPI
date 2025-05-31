@@ -1,6 +1,6 @@
 # CommandAPI for Bukkit/Spigot/Paper Plugins
 
-A modern, annotation-driven command API for Spigot plugins that removes the need for implementing `CommandExecutor` for every command.
+A modern, annotation-driven command API for  plugins that removes the need for implementing `CommandExecutor` for every command.
 
 ---
 
