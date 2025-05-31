@@ -121,4 +121,4 @@ Everything is handled through annotations and automatic registration.
 
 ## Feel free to use this API in your projects!
 
-### This API has been tested strictly on 1.8.8,
+### This API should work on every version of minecraft!
