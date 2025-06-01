@@ -128,34 +128,42 @@ public class CommandManager implements CommandExecutor {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void registerCommand(Command command, String label, Method m, Object obj) {
         String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
+        String pluginNs  = plugin.getName().toLowerCase() + ":" + cmdLabel;
         if (map.getCommand(cmdLabel) != null && command.forceOverride()) {
             try {
-                Field knownCommands = map.getClass().getDeclaredField("knownCommands");
-                knownCommands.setAccessible(true);
-                Map<String, org.bukkit.command.Command> known = (Map<String, org.bukkit.command.Command>) knownCommands.get(map);
+                Field knownCommandsField = map.getClass().getDeclaredField("knownCommands");
+                knownCommandsField.setAccessible(true);
+
+                Map<String, org.bukkit.command.Command> known =
+                        (Map<String, org.bukkit.command.Command>) knownCommandsField.get(map);
                 known.remove(cmdLabel);
-                known.remove(plugin.getName().toLowerCase() + ":" + cmdLabel);
-            } catch (Exception e) {
-                e.printStackTrace();
+                known.remove(pluginNs);
+                known.remove("bukkit:"  + cmdLabel);
+                known.remove("minecraft:"+ cmdLabel);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
 
-        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
-        commandMap.put(plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
-
         if (map.getCommand(cmdLabel) == null) {
-            org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);
-            map.register(plugin.getName(), cmd);
+            org.bukkit.command.Command cmdInstance = new BukkitCommand(cmdLabel, this, plugin);
+            map.register(plugin.getName(), cmdInstance);
         }
 
-        if (!command.description().equalsIgnoreCase("") && cmdLabel.equals(label)) {
+        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
+        commandMap.put(plugin.getName() + ':' + label.toLowerCase(),
+                new AbstractMap.SimpleEntry<>(m, obj));
+
+        if (!command.description().isEmpty() && cmdLabel.equals(label.toLowerCase())) {
             map.getCommand(cmdLabel).setDescription(command.description());
         }
-
-        if (!command.usage().equalsIgnoreCase("") && cmdLabel.equals(label)) {
+        if (!command.usage().isEmpty() && cmdLabel.equals(label.toLowerCase())) {
             map.getCommand(cmdLabel).setUsage(command.usage());
         }
     }
+
 }
