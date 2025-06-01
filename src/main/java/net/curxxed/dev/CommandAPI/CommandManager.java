@@ -129,9 +129,21 @@ public class CommandManager implements CommandExecutor {
     }
 
     public void registerCommand(Command command, String label, Method m, Object obj) {
-        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
-        commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
         String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
+        if (map.getCommand(cmdLabel) != null && command.forceOverride()) {
+            try {
+                Field knownCommands = map.getClass().getDeclaredField("knownCommands");
+                knownCommands.setAccessible(true);
+                Map<String, org.bukkit.command.Command> known = (Map<String, org.bukkit.command.Command>) knownCommands.get(map);
+                known.remove(cmdLabel);
+                known.remove(plugin.getName().toLowerCase() + ":" + cmdLabel);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
+        commandMap.put(plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
 
         if (map.getCommand(cmdLabel) == null) {
             org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);

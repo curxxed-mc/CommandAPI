@@ -15,4 +15,5 @@ public @interface Command {
     String description() default "";
     String usage() default "";
     boolean inGameOnly() default true;
+    boolean forceOverride() default false;
 }
