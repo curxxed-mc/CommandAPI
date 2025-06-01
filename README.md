@@ -1,15 +1,15 @@
-# Spigot Command API by Curxxed
+# CommandAPI for Bukkit/Spigot/Paper Plugins
 
-A modern, annotation-driven command API for Spigot plugins that removes the need for implementing `CommandExecutor` for every command.
+A modern, annotation-driven command API for  plugins that removes the need for implementing `CommandExecutor` for every command.
 
 ---
 
 ## 📑 Table of Contents
 
-- Features
-- Why Use This?
-- Dependency (Maven)
-- Example Usage
+- [Features](#-features)
+- [Why Use This?](#-why-use-this)
+- [Dependency](#-dependency)
+- [Example Usage](#-example-usage)
 
 ---
 
@@ -37,28 +37,71 @@ A modern, annotation-driven command API for Spigot plugins that removes the need
 
 ---
 
-## 📦 Dependency (Maven)
+## 📦 Dependency 
+
+# Maven:
 
 Add the following to your `pom.xml` to use CommandAPI as a dependency:
 
 Repository:
 
 ```xml
-                <repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
 ```
 
 Dependency
 
 ```xml
-	<dependency>
-	    <groupId>com.github.curxxed-mc</groupId>
-	    <artifactId>CommandAPI</artifactId>
-	    <version>1.0</version>
-	</dependency>
+<dependency>
+    <groupId>com.github.curxxed-mc</groupId>
+    <artifactId>CommandAPI</artifactId>
+     <version>1.0</version>
+</dependency>
 
+```
+
+Gradle:
+
+Add the following in your settings.gradle at the end of repositories:
+
+```xml
+dependencyResolutionManagement {
+     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+     repositories {
+         mavenCentral()
+         maven { url 'https://jitpack.io' }
+   }
+}
+```
+
+And then add the dependency in your buid.gradle:
+```xml
+dependencies {
+    implementation 'com.github.curxxed-mc:CommandAPI:1.0'
+}
+```
+
+For settings.gradle.kts at the end of repositories:
+
+```xml
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+build.gradle.kts:
+
+```xml
+dependencies {
+    implementation("com.github.curxxed-mc:CommandAPI:1.0")
+}
 ```
 
 ---
@@ -68,9 +111,9 @@ Dependency
 ### 1. Create Your Command Class
 
 ```java
-import net.curxxed.dev.api.command.BaseCommand;
-import net.curxxed.dev.api.command.Command;
-import net.curxxed.dev.api.command.CommandArgs;
+import net.curxxed.dev.CommandAPI.BaseCommand;
+import net.curxxed.dev.CommandAPI.Command;
+import net.curxxed.dev.CommandAPI.CommandArgs;
 import org.bukkit.entity.Player;
 
 public class Test extends BaseCommand {
@@ -121,4 +164,4 @@ Everything is handled through annotations and automatic registration.
 
 ## Feel free to use this API in your projects!
 
-### This API has been tested strictly on 1.8.8,
+### This API should work on every version of minecraft!
