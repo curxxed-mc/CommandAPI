@@ -128,42 +128,22 @@ public class CommandManager implements CommandExecutor {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public void registerCommand(Command command, String label, Method m, Object obj) {
+        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
+        commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
         String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
-        String pluginNs  = plugin.getName().toLowerCase() + ":" + cmdLabel;
-        if (map.getCommand(cmdLabel) != null && command.forceOverride()) {
-            try {
-                Field knownCommandsField = map.getClass().getDeclaredField("knownCommands");
-                knownCommandsField.setAccessible(true);
-
-                Map<String, org.bukkit.command.Command> known =
-                        (Map<String, org.bukkit.command.Command>) knownCommandsField.get(map);
-                known.remove(cmdLabel);
-                known.remove(pluginNs);
-                known.remove("bukkit:"  + cmdLabel);
-                known.remove("minecraft:"+ cmdLabel);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
 
         if (map.getCommand(cmdLabel) == null) {
-            org.bukkit.command.Command cmdInstance = new BukkitCommand(cmdLabel, this, plugin);
-            map.register(plugin.getName(), cmdInstance);
+            org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);
+            map.register(plugin.getName(), cmd);
         }
 
-        commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
-        commandMap.put(plugin.getName() + ':' + label.toLowerCase(),
-                new AbstractMap.SimpleEntry<>(m, obj));
-
-        if (!command.description().isEmpty() && cmdLabel.equals(label.toLowerCase())) {
+        if (!command.description().equalsIgnoreCase("") && cmdLabel.equals(label)) {
             map.getCommand(cmdLabel).setDescription(command.description());
         }
-        if (!command.usage().isEmpty() && cmdLabel.equals(label.toLowerCase())) {
+
+        if (!command.usage().equalsIgnoreCase("") && cmdLabel.equals(label)) {
             map.getCommand(cmdLabel).setUsage(command.usage());
         }
     }
-
 }
