@@ -120,7 +120,7 @@ public class Test extends BaseCommand {
 
     @Command(
         name = "test",
-        permission = "ifactions.test",
+        permission = "plugin.test",
         description = "Test command",
         usage = "/test",
         aliases = {"t"},
